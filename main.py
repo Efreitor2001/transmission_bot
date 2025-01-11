@@ -2,11 +2,12 @@ import asyncio
 import logging
 
 from create_bot import dp, bot
-from handlers import bot_handlers
+from handlers import bot_handlers, bot_commands
 
 
 async def main():
     logging.basicConfig(level=logging.INFO)
+    dp.include_router(bot_commands.router)
     dp.include_router(bot_handlers.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
